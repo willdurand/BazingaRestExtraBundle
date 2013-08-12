@@ -1,0 +1,24 @@
+{
+  "name": "willdurand/rest-extra-bundle",
+  "description": "",
+  "keywords": [],
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "William Durand",
+      "email": "william.durand1@gmail.com"
+    }
+  ],
+  "require": {
+    "symfony/framework-bundle": ">=2.0,<2.4-dev"
+  },
+  "require-dev": {
+    "symfony/finder": ">=2.0,<2.4-dev",
+    "symfony/browser-kit": ">=2.0,<2.4-dev"
+  },
+  "autoload": {
+    "psr-0": { "Bazinga\\Bundle\\RestExtraBundle": "" }
+  },
+  "target-dir": "Bazinga/Bundle/RestExtraBundle"
+}

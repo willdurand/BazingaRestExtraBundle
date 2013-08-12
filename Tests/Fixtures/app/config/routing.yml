@@ -1,0 +1,11 @@
+test_get:
+    pattern:  /tests/{id}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:get, _format: ~ }
+    requirements:
+        _method: GET
+
+test_link:
+    pattern:  /tests/{id}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:link, _format: ~ }
+    requirements:
+        _method: LINK
