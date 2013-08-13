@@ -17,7 +17,9 @@ For documentation, see:
 Contributing
 ------------
 
-See CONTRIBUTING file.
+See
+[CONTRIBUTING](https://github.com/willdurand/BazingaRestExtraBundle/blob/master/CONTRIBUTING.md)
+file.
 
 
 Credits

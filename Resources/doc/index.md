@@ -9,7 +9,9 @@ Usage
 Installation
 ------------
 
-Require `willdurand/rest-extra-bundle` to your `composer.json` file:
+Require [`willdurand/rest-extra-bundle`](https://packagist.org/packages/willdurand/rest-extra-bundle)
+to your `composer.json` file:
+
 
 ``` json
 {
