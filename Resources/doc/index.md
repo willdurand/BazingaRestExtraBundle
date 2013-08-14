@@ -66,16 +66,16 @@ definition:
 
 ``` yaml
 # app/config/routing.yml
-test_all_v1:
+acme_demo.test_all_v1:
     pattern:  /tests
-    defaults: { _controller: BazingaRestExtraTestBundle:Test:all, _format: ~ }
+    defaults: { _controller: AcmeDemoBundle:Test:all, _format: ~ }
     requirements:
         _method:        GET
         _api_version:   "1"
 
-test_all_v2:
+acme_demo.test_all_v2:
     pattern:  /tests
-    defaults: { _controller: BazingaRestExtraTestBundle:Test:allVersion2, _format: ~ }
+    defaults: { _controller: AcmeDemoBundle:Test:allVersion2, _format: ~ }
     requirements:
         _method:        GET
         _api_version:   "2"
