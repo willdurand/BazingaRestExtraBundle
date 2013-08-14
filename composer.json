@@ -1,7 +1,7 @@
 {
   "name": "willdurand/rest-extra-bundle",
-  "description": "",
-  "keywords": [],
+  "description": "This bundle provides extra features for your REST APIs built using Symfony2.",
+  "keywords": [ "rest", "api" ],
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [
