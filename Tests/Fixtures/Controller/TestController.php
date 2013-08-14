@@ -17,4 +17,14 @@ class TestController
     {
         return new Response();
     }
+
+    public function allAction()
+    {
+        return new Response(__METHOD__);
+    }
+
+    public function allVersion123Action()
+    {
+        return new Response(__METHOD__);
+    }
 }

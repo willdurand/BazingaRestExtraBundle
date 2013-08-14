@@ -8,3 +8,4 @@ framework:
 
 bazinga_rest_extra:
     link_request_listener: true
+    version_listener: true

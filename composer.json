@@ -11,7 +11,8 @@
     }
   ],
   "require": {
-    "symfony/framework-bundle": ">=2.0,<2.4-dev"
+    "symfony/framework-bundle": ">=2.0,<2.4-dev",
+    "willdurand/negotiation": "~1.0"
   },
   "require-dev": {
     "symfony/finder": ">=2.0,<2.4-dev",

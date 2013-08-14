@@ -9,3 +9,15 @@ test_link:
     defaults: { _controller: BazingaRestExtraTestBundle:Test:link, _format: ~ }
     requirements:
         _method: LINK
+
+test_all:
+    pattern:  /tests
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:all, _format: ~ }
+    requirements:
+        _api_version: "1"
+
+test_all_version_123:
+    pattern:  /tests
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:allVersion123, _format: ~ }
+    requirements:
+        _api_version: "123"
