@@ -14,7 +14,7 @@ env:
 
 matrix:
     allow_failures:
-        - SYMFONY_VERSION=dev-master
+        - env: SYMFONY_VERSION=dev-master
 
 before_script:
     - curl -s http://getcomposer.org/installer | php
