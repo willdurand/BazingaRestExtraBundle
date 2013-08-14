@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 /**
  * @author William Durand <william.durand1@gmail.com>
  */
-class WebTestCase extends BaseWebTestCase
+abstract class WebTestCase extends BaseWebTestCase
 {
     protected function assertJsonResponse($response, $statusCode = 200)
     {
