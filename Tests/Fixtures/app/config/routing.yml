@@ -14,10 +14,18 @@ test_all:
     pattern:  /tests
     defaults: { _controller: BazingaRestExtraTestBundle:Test:all, _format: ~ }
     requirements:
+        _method:      GET
         _api_version: "1"
 
 test_all_version_123:
     pattern:  /tests
     defaults: { _controller: BazingaRestExtraTestBundle:Test:allVersion123, _format: ~ }
     requirements:
+        _method:      GET
         _api_version: "123"
+
+test_create:
+    pattern:  /tests
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:create, _format: ~ }
+    requirements:
+        _method: POST

@@ -7,5 +7,11 @@ framework:
     profiler:      { only_exceptions: false }
 
 bazinga_rest_extra:
-    link_request_listener: true
-    version_listener: true
+    link_request_listener:  true
+
+    version_listener:       true
+
+    csrf_double_submit_listener:
+        enabled:            true
+        cookie_name:        csrf_cookie
+        parameter_name:     _csrf_token

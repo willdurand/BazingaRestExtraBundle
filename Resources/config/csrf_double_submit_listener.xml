@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="bazinga_rest_extra.event_listener.csrf_double_submit.class">Bazinga\Bundle\RestExtraBundle\EventListener\CsrfDoubleSubmitListener</parameter>
+    </parameters>
+
+    <services>
+        <service id="bazinga_rest_extra.event_listener.csrf_double_submit" class="%bazinga_rest_extra.event_listener.csrf_double_submit.class%">
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
+            <argument /> <!-- Cookie name -->
+            <argument /> <!-- Parameter name -->
+        </service>
+    </services>
+</container>

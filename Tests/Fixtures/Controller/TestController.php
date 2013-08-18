@@ -27,4 +27,9 @@ class TestController
     {
         return new Response(__METHOD__);
     }
+
+    public function createAction()
+    {
+        return new Response(__METHOD__);
+    }
 }

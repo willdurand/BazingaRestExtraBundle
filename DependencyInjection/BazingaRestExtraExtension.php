@@ -38,5 +38,14 @@ class BazingaRestExtraExtension extends Extension
                 ->replaceArgument(3, $config['version_listener']['default_version'])
                 ;
         }
+
+        if (!empty($config['csrf_double_submit_listener']) && true === $config['csrf_double_submit_listener']['enabled']) {
+            $loader->load('csrf_double_submit_listener.xml');
+
+            $container->getDefinition('bazinga_rest_extra.event_listener.csrf_double_submit')
+                ->replaceArgument(0, $config['csrf_double_submit_listener']['cookie_name'])
+                ->replaceArgument(1, $config['csrf_double_submit_listener']['parameter_name'])
+                ;
+        }
     }
 }

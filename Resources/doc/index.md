@@ -11,6 +11,38 @@ this bundle.
 
 ### Listeners
 
+#### CsrfDoubleSubmitListener
+
+The `CsrfDoubleSubmitListener` listener is a new way to protect you against CSRF
+attacks by leveraging the client side instead of the plain old server side. It
+is particularly useful for REST APIs as the Symfony2 CSRF protection relies on
+the session in order to store the secret.
+
+<img src="http://1.bp.blogspot.com/-ukVC7jdLTrI/Twca9giiQ9I/AAAAAAAAAmI/2fTIQrwnW6s/s1600/double_submit.png" style="max-width:100%;" align="right" />
+
+Using the **double submit** mechanism, there is no need to store anything on the
+server. However, the client MUST:
+
+* generate a random secret;
+* set a cookie with this secret;
+* send this secret as part of the request parameters.
+
+For further information, you can read more about [Stateless CSRF
+protection](http://appsandsecurity.blogspot.se/2012/01/stateless-csrf-protection.html).
+
+Here is the configuration section for this listener. First, you must enable it,
+then you have to choose names for both `cookie_name` and `parameter_name`
+configuration parameters:
+
+``` yaml
+# app/config/config.yml
+bazinga_rest_extra:
+    csrf_double_submit_listener:
+        enabled:        true
+        cookie_name:    cookie_csrf
+        parameter_name: _csrf_token
+```
+
 #### LinkRequestListener
 
 The `LinkRequestListener` listener is able to convert **links**, as described in
