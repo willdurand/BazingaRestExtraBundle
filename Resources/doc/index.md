@@ -16,7 +16,8 @@ this bundle.
 The `CsrfDoubleSubmitListener` listener is a new way to protect you against CSRF
 attacks by leveraging the client side instead of the plain old server side. It
 is particularly useful for REST APIs as the Symfony2 CSRF protection relies on
-the session in order to store the secret.
+the session in order to store the secret. That is why you often have to disable
+CSRF protection when you use Forms in your REST APIs.
 
 <img src="http://1.bp.blogspot.com/-ukVC7jdLTrI/Twca9giiQ9I/AAAAAAAAAmI/2fTIQrwnW6s/s1600/double_submit.png" style="max-width:100%;" align="right" />
 

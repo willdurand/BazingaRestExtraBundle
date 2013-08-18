@@ -26,6 +26,7 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
             'Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::createAction',
             $response->getContent()
         );
+        $this->assertCount(0, $response->headers->getCookies());
     }
 
     /**

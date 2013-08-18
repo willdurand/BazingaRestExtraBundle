@@ -54,6 +54,9 @@ class CsrfDoubleSubmitListener
             throw new BadRequestHttpException('Request parameter not found.');
         }
 
+        $request->cookies->remove($this->cookieName);
+        $request->request->remove($this->parameterName);
+
         if (0 !== strcmp($cookieValue, $paramValue)) {
             throw new BadRequestHttpException('CSRF values mismatch.');
         }
