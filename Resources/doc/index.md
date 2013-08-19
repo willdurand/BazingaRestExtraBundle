@@ -29,7 +29,9 @@ server. However, the client MUST:
 * send this secret as part of the request parameters.
 
 For further information, you can read more about [Stateless CSRF
-protection](http://appsandsecurity.blogspot.se/2012/01/stateless-csrf-protection.html).
+protection](http://appsandsecurity.blogspot.se/2012/01/stateless-csrf-protection.html)
+and [Stateful vs Stateless CSRF
+Defences](http://blog.astrumfutura.com/2013/08/stateful-vs-stateless-csrf-defences-know-the-difference/).
 
 Here is the configuration section for this listener. First, you must enable it,
 then you have to choose names for both `cookie_name` and `parameter_name`
