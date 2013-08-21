@@ -4,6 +4,7 @@ namespace Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Bazinga\Bundle\RestExtraBundle\Annotation\CsrfDoubleSubmit;
 use Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Model\Test;
 
 class TestController
@@ -28,7 +29,15 @@ class TestController
         return new Response(__METHOD__);
     }
 
+    /**
+     * @CsrfDoubleSubmit
+     */
     public function createAction()
+    {
+        return new Response(__METHOD__);
+    }
+
+    public function createWithoutCsrfDoubleSubmitAction()
     {
         return new Response(__METHOD__);
     }

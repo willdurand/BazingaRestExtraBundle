@@ -46,6 +46,23 @@ bazinga_rest_extra:
         parameter_name: _csrf_token
 ```
 
+Once done, you can configure each action you want to protect with **CSRF double
+submit** mechanism by using the `@CsrfDoubleSubmit` annotation:
+
+``` php
+use Bazinga\Bundle\RestExtraBundle\Annotation\CsrfDoubleSubmit;
+
+// ...
+
+/**
+ * @CsrfDoubleSubmit
+ */
+public function createAction()
+{
+    // ...
+}
+```
+
 #### LinkRequestListener
 
 The `LinkRequestListener` listener is able to convert **links**, as described in

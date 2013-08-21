@@ -10,6 +10,7 @@
 
 namespace Bazinga\Bundle\RestExtraBundle\EventListener;
 
+use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -18,6 +19,11 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  */
 class CsrfDoubleSubmitListener
 {
+    /**
+     * @var Reader
+     */
+    private $annotationReader;
+
     /**
      * @var string
      */
@@ -29,36 +35,63 @@ class CsrfDoubleSubmitListener
     private $parameterName;
 
     /**
+     * @param Reader $annotationReader
      * @param string $cookieName
      * @param string $parameterName
      */
-    public function __construct($cookieName, $parameterName)
+    public function __construct(Reader $annotationReader, $cookieName, $parameterName)
     {
-        $this->cookieName    = $cookieName;
-        $this->parameterName = $parameterName;
+        $this->annotationReader = $annotationReader;
+        $this->cookieName       = $cookieName;
+        $this->parameterName    = $parameterName;
     }
 
     public function onKernelController(FilterControllerEvent $event)
     {
-        $request = $event->getRequest();
+        $controller = $event->getController();
 
-        if (!in_array($request->getMethod(), array('POST', 'PUT'))) {
+        // does not apply on closures
+        if (!is_array($controller)) {
             return;
         }
 
-        if (null === $cookieValue = $request->cookies->get($this->cookieName)) {
-            throw new BadRequestHttpException('Cookie not found.');
+        $object = new \ReflectionObject($controller[0]);
+        $method = $object->getMethod($controller[1]);
+
+        if (false === $this->isProtectedByCsrfDoubleSubmit($method)) {
+            return;
         }
 
-        if (null === $paramValue = $request->request->get($this->parameterName)) {
-            throw new BadRequestHttpException('Request parameter not found.');
+        $request     = $event->getRequest();
+        $cookieValue = $request->cookies->get($this->cookieName);
+        $paramValue  = $request->request->get($this->parameterName);
+
+        if (empty($cookieValue)) {
+            throw new BadRequestHttpException('Cookie not found or invalid.');
         }
 
-        $request->cookies->remove($this->cookieName);
-        $request->request->remove($this->parameterName);
+        if (empty($paramValue)) {
+            throw new BadRequestHttpException('Request parameter not found or invalid.');
+        }
 
         if (0 !== strcmp($cookieValue, $paramValue)) {
             throw new BadRequestHttpException('CSRF values mismatch.');
         }
+
+        $request->cookies->remove($this->cookieName);
+        $request->request->remove($this->parameterName);
+    }
+
+    /**
+     * @return boolean
+     */
+    private function isProtectedByCsrfDoubleSubmit(\ReflectionMethod $method)
+    {
+        $annotation = $this->annotationReader->getMethodAnnotation(
+            $method,
+            'Bazinga\Bundle\RestExtraBundle\Annotation\CsrfDoubleSubmit'
+        );
+
+        return null !== $annotation;
     }
 }

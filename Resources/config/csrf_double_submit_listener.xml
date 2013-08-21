@@ -10,6 +10,7 @@
     <services>
         <service id="bazinga_rest_extra.event_listener.csrf_double_submit" class="%bazinga_rest_extra.event_listener.csrf_double_submit.class%">
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
+            <argument type="service" id="annotation_reader" />
             <argument /> <!-- Cookie name -->
             <argument /> <!-- Parameter name -->
         </service>

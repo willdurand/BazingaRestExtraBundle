@@ -31,7 +31,7 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
 
     /**
      * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     * @expectedExceptionMessage Cookie not found.
+     * @expectedExceptionMessage Cookie not found or invalid.
      */
     public function testCsrfDoubleSubmitFailsIfNoCookieFound()
     {
@@ -43,7 +43,21 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
 
     /**
      * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     * @expectedExceptionMessage Request parameter not found.
+     * @expectedExceptionMessage Cookie not found or invalid.
+     *
+     * @dataProvider dataProviderWithInvalidData
+     */
+    public function testCsrfDoubleSubmitFailsIfInvalidCookieValue($cookieValue)
+    {
+        $client = $this->createClient();
+        $client->getCookieJar()->set(new Cookie('csrf_cookie', $cookieValue));
+
+        $crawler = $client->request('POST', '/tests');
+    }
+
+    /**
+     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedExceptionMessage Request parameter not found or invalid.
      */
     public function testCsrfDoubleSubmitFailsIfNoRequestParameterFound()
     {
@@ -51,6 +65,22 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
         $client->getCookieJar()->set(new Cookie('csrf_cookie', 'a token'));
 
         $crawler = $client->request('POST', '/tests');
+    }
+
+    /**
+     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedExceptionMessage Request parameter not found or invalid.
+     *
+     * @dataProvider dataProviderWithInvalidData
+     */
+    public function testCsrfDoubleSubmitFailsIfInvalidRequestParamValue($paramValue)
+    {
+        $client = $this->createClient();
+        $client->getCookieJar()->set(new Cookie('csrf_cookie', 'a token'));
+
+        $crawler = $client->request('POST', '/tests', array(
+            '_csrf_token' => $paramValue,
+        ));
     }
 
     /**
@@ -65,5 +95,27 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
         $crawler = $client->request('POST', '/tests', array(
             '_csrf_token' => 'another token',
         ));
+    }
+
+    public function testCsrfDoubleSubmitWithoutAnnotationIsInactive()
+    {
+        $client   = $this->createClient();
+        $crawler  = $client->request('POST', '/without-csrf-double-submit');
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(
+            'Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::createWithoutCsrfDoubleSubmitAction',
+            $response->getContent()
+        );
+    }
+
+    public static function dataProviderWithInvalidData()
+    {
+        return array(
+            array(null),
+            array(false),
+            array(''),
+        );
     }
 }
