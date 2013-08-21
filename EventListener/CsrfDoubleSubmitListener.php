@@ -49,6 +49,12 @@ class CsrfDoubleSubmitListener
     public function onKernelController(FilterControllerEvent $event)
     {
         $controller = $event->getController();
+        $request    = $event->getRequest();
+
+        // these HTTP methods do not require CSRF protection
+        if (in_array($request->getMethod(), array('GET', 'HEAD', 'OPTIONS', 'TRACE'))) {
+            return;
+        }
 
         // does not apply on closures
         if (!is_array($controller)) {
@@ -62,7 +68,6 @@ class CsrfDoubleSubmitListener
             return;
         }
 
-        $request     = $event->getRequest();
         $cookieValue = $request->cookies->get($this->cookieName);
         $paramValue  = $request->request->get($this->parameterName);
 
