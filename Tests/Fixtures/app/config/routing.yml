@@ -35,3 +35,15 @@ test_create_without_csrf_double_submit:
     defaults: { _controller: BazingaRestExtraTestBundle:Test:createWithoutCsrfDoubleSubmit, _format: ~ }
     requirements:
         _method: POST
+
+test_create_csrf_class:
+    pattern:  /tests-csrf-class
+    defaults: { _controller: BazingaRestExtraTestBundle:TestCsrf:create, _format: ~ }
+    requirements:
+        _method: POST
+
+test_get_csrf_class:
+    pattern:  /tests-csrf-class
+    defaults: { _controller: BazingaRestExtraTestBundle:TestCsrf:get, _format: ~ }
+    requirements:
+        _method: GET
