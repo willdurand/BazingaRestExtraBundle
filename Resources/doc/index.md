@@ -63,6 +63,24 @@ public function createAction()
 }
 ```
 
+Or you could protect a controller with the **CSRF double submit** mechanism
+by using the `@CsrfDoubleSubmit` annotation, all methods except `GET, HEAD, OPTIONS, TRACE`
+will be protected:
+
+``` php
+use Bazinga\Bundle\RestExtraBundle\Annotation\CsrfDoubleSubmit;
+
+// ...
+
+/**
+ * @CsrfDoubleSubmit
+ */
+class ApiController
+{
+    // ...
+}
+```
+
 #### LinkRequestListener
 
 The `LinkRequestListener` listener is able to convert **links**, as described in

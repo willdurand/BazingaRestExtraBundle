@@ -12,7 +12,7 @@ namespace Bazinga\Bundle\RestExtraBundle\Annotation;
 
 /**
  * @Annotation
- * @Target("METHOD")
+ * @Target({"CLASS","METHOD"})
  */
 final class CsrfDoubleSubmit
 {

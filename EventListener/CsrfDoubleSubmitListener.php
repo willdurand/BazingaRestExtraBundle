@@ -64,7 +64,7 @@ class CsrfDoubleSubmitListener
         $object = new \ReflectionObject($controller[0]);
         $method = $object->getMethod($controller[1]);
 
-        if (false === $this->isProtectedByCsrfDoubleSubmit($method)) {
+        if (false === $this->isProtectedByCsrfDoubleSubmit($object, $method)) {
             return;
         }
 
@@ -90,8 +90,17 @@ class CsrfDoubleSubmitListener
     /**
      * @return boolean
      */
-    private function isProtectedByCsrfDoubleSubmit(\ReflectionMethod $method)
+    private function isProtectedByCsrfDoubleSubmit(\ReflectionClass $class, \ReflectionMethod $method)
     {
+        $annotation = $this->annotationReader->getClassAnnotation(
+            $class,
+            'Bazinga\Bundle\RestExtraBundle\Annotation\CsrfDoubleSubmit'
+        );
+
+        if (null !== $annotation) {
+            return true;
+        }
+
         $annotation = $this->annotationReader->getMethodAnnotation(
             $method,
             'Bazinga\Bundle\RestExtraBundle\Annotation\CsrfDoubleSubmit'
