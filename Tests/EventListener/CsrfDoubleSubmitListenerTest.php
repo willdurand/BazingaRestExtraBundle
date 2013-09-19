@@ -110,6 +110,56 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
         );
     }
 
+    public function testCsrfDoubleSubmitClass()
+    {
+        $csrfValue = 'Sup3r$ecr3t';
+
+        $client = $this->createClient();
+        $client->getCookieJar()->set(new Cookie('csrf_cookie', $csrfValue));
+
+        $crawler = $client->request('POST', '/tests-csrf-class', array(
+            '_csrf_token' => $csrfValue,
+        ));
+
+        $request  = $client->getRequest();
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(
+            'Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestCsrfController::createAction',
+            $response->getContent()
+        );
+        $this->assertCount(0, $response->headers->getCookies());
+    }
+
+    /**
+     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedExceptionMessage Cookie not found or invalid.
+     */
+    public function testCsrfDoubleSubmitClassFailsIfNoCookieFound()
+    {
+        $client  = $this->createClient();
+        $crawler = $client->request('POST', '/tests-csrf-class', array(
+            '_csrf_token' => '',
+        ));
+    }
+
+    public function testCsrfDoubleSubmitClassGETMethod()
+    {
+        $client = $this->createClient();
+
+        $crawler = $client->request('GET', '/tests-csrf-class');
+
+        $request  = $client->getRequest();
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(
+            'Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestCsrfController::getAction',
+            $response->getContent()
+        );
+    }
+
     public static function dataProviderWithInvalidData()
     {
         return array(
