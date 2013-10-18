@@ -1,25 +1,25 @@
 {
-  "name": "willdurand/rest-extra-bundle",
-  "description": "This bundle provides extra features for your REST APIs built using Symfony2.",
-  "keywords": [ "rest", "api" ],
-  "type": "symfony-bundle",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "William Durand",
-      "email": "william.durand1@gmail.com"
+    "name": "willdurand/rest-extra-bundle",
+    "description": "This bundle provides extra features for your REST APIs built using Symfony2.",
+    "keywords": [ "rest", "api" ],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+        "name": "William Durand",
+        "email": "william.durand1@gmail.com"
     }
-  ],
-  "require": {
-    "symfony/framework-bundle": ">=2.0,<2.4-dev",
-    "willdurand/negotiation": "~1.0"
-  },
-  "require-dev": {
-    "symfony/finder": ">=2.0,<2.4-dev",
-    "symfony/browser-kit": ">=2.0,<2.4-dev"
-  },
-  "autoload": {
-    "psr-0": { "Bazinga\\Bundle\\RestExtraBundle": "" }
-  },
-  "target-dir": "Bazinga/Bundle/RestExtraBundle"
+    ],
+    "require": {
+        "symfony/framework-bundle": "~2.0",
+        "willdurand/negotiation": "~1.0"
+    },
+    "require-dev": {
+        "symfony/finder": "~2.0",
+        "symfony/browser-kit": "~2.0"
+    },
+    "autoload": {
+        "psr-0": { "Bazinga\\Bundle\\RestExtraBundle": "" }
+    },
+    "target-dir": "Bazinga/Bundle/RestExtraBundle"
 }

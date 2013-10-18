@@ -12,7 +12,7 @@ namespace Bazinga\Bundle\RestExtraBundle\EventListener;
 
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @author William Durand <william.durand1@gmail.com>
@@ -72,15 +72,15 @@ class CsrfDoubleSubmitListener
         $paramValue  = $request->request->get($this->parameterName);
 
         if (empty($cookieValue)) {
-            throw new BadRequestHttpException('Cookie not found or invalid.');
+            throw new HttpException(400, 'Cookie not found or invalid.');
         }
 
         if (empty($paramValue)) {
-            throw new BadRequestHttpException('Request parameter not found or invalid.');
+            throw new HttpException(400, 'Request parameter not found or invalid.');
         }
 
         if (0 !== strcmp($cookieValue, $paramValue)) {
-            throw new BadRequestHttpException('CSRF values mismatch.');
+            throw new HttpException(400, 'CSRF values mismatch.');
         }
 
         $request->cookies->remove($this->cookieName);

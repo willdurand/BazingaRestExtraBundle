@@ -30,7 +30,7 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
     }
 
     /**
-     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage Cookie not found or invalid.
      */
     public function testCsrfDoubleSubmitFailsIfNoCookieFound()
@@ -42,7 +42,7 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
     }
 
     /**
-     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage Cookie not found or invalid.
      *
      * @dataProvider dataProviderWithInvalidData
@@ -56,7 +56,7 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
     }
 
     /**
-     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage Request parameter not found or invalid.
      */
     public function testCsrfDoubleSubmitFailsIfNoRequestParameterFound()
@@ -68,7 +68,7 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
     }
 
     /**
-     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage Request parameter not found or invalid.
      *
      * @dataProvider dataProviderWithInvalidData
@@ -84,7 +84,7 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
     }
 
     /**
-     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage CSRF values mismatch.
      */
     public function testCsrfDoubleSubmitFailsIfValuesMismatch()
@@ -133,7 +133,7 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
     }
 
     /**
-     * @expectedException        Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage Cookie not found or invalid.
      */
     public function testCsrfDoubleSubmitClassFailsIfNoCookieFound()
