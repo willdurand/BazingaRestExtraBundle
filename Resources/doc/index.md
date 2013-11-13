@@ -117,39 +117,8 @@ foreach ($request->attributes->get('links') as $linkObject) {
 
 #### VersionListener
 
-The `VersionListener` listener provides API versioning by looking at the
-`Accept` header. Here is the default configuration:
+Does not work yet...
 
-``` yaml
-# app/config/config.yml
-bazinga_rest_extra:
-    version_listener:
-        enabled:              false
-        attribute_name:       _api_version
-        parameter_name:       v
-        default_version:      1
-```
-
-Turn the `enabled` flag to `true` in order to activate the listener, and you
-will be able to use the `attribute_name` value as requirement in your routing
-definition:
-
-``` yaml
-# app/config/routing.yml
-acme_demo.test_all_v1:
-    pattern:  /tests
-    defaults: { _controller: AcmeDemoBundle:Test:all, _format: ~ }
-    requirements:
-        _method:        GET
-        _api_version:   "1"
-
-acme_demo.test_all_v2:
-    pattern:  /tests
-    defaults: { _controller: AcmeDemoBundle:Test:allVersion2, _format: ~ }
-    requirements:
-        _method:        GET
-        _api_version:   "2"
-```
 
 ### Testing
 
