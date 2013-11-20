@@ -4,6 +4,12 @@ test_get:
     requirements:
         _method: GET
 
+test_get_no_convention:
+    pattern:  /tests/noconventions/{id}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:getNoConvention, _format: ~ }
+    requirements:
+        _method: GET
+
 test_link:
     pattern:  /tests/{id}
     defaults: { _controller: BazingaRestExtraTestBundle:Test:link, _format: ~ }

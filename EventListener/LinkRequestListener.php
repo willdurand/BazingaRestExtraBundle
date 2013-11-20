@@ -98,13 +98,7 @@ class LinkRequestListener
             try {
                 $result = call_user_func_array($controller, $arguments);
 
-                // By convention the controller action must return an array
-                if (!is_array($result)) {
-                    continue;
-                }
-
-                // The key of first item is discarded
-                $links[$idx] = current($result);
+                $links[$idx] = is_array($result) ? current($result) : $result;
             } catch (\Exception $e) {
                 continue;
             }
