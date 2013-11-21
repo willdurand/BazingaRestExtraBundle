@@ -71,6 +71,9 @@ class LinkRequestListener
         // previous method (LINK/UNLINK)
         $this->urlMatcher->getContext()->setMethod('GET');
 
+        // Link needs to cleaned from HTTP_ORIGIN/BasePath when added
+        $httpOriginAndBasePath = $event->getRequest()->getSchemeAndHttpHost() . $event->getRequest()->getBasePath();
+
         // The controller resolver needs a request to resolve the controller.
         $stubRequest = new Request();
 
@@ -78,6 +81,7 @@ class LinkRequestListener
             $linkParams = explode(';', trim($link));
             $resource   = array_shift($linkParams);
             $resource   = preg_replace('/<|>/', '', $resource);
+            $resource   = str_replace($httpOriginAndBasePath, '', $resource);
 
             try {
                 $route = $this->urlMatcher->match($resource);
