@@ -14,6 +14,11 @@ class TestController
         return array('test' => new Test($id));
     }
 
+    public function getNoConventionAction($id)
+    {
+        return new Test($id);
+    }
+
     public function linkAction($id)
     {
         return new Response();

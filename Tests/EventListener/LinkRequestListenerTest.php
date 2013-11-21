@@ -6,15 +6,16 @@ use Bazinga\Bundle\RestExtraBundle\Tests\WebTestCase;
 
 class LinkRequestListenerTest extends WebTestCase
 {
-    const GET_ROUTE_PATTERN = '</tests/%d>';
-
-    public function testLink()
+    /**
+     * @dataProvider linkDataProvider
+     */
+    public function testLink($uri, $linkUri)
     {
         $client  = $this->createClient();
-        $crawler = $client->request('LINK', '/tests/1',
+        $crawler = $client->request('LINK', $uri,
             array(),
             array(),
-            array('HTTP_LINK' => sprintf(self::GET_ROUTE_PATTERN, 2))
+            array('HTTP_LINK' => sprintf($linkUri, 2))
         );
         $request = $client->getRequest();
 
@@ -25,5 +26,13 @@ class LinkRequestListenerTest extends WebTestCase
 
         $this->assertInstanceOf('Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Model\Test', $links[0]);
         $this->assertEquals(2, $links[0]->getId());
+    }
+
+    public function linkDataProvider()
+    {
+        return array(
+          array('/tests/1', '</tests/%d>'),
+          array('/tests/1', '</tests/noconventions/%d>')
+        );
     }
 }
