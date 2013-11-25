@@ -15,7 +15,7 @@ class LinkRequestListenerTest extends WebTestCase
         $crawler = $client->request('LINK', $uri,
             array(),
             array(),
-            array('HTTP_LINK' => sprintf($linkUri, 2))
+            array('HTTP_LINK' => sprintf($linkUri, 2), 'HTTP_ORIGIN' => 'http://localhost')
         );
         $request = $client->getRequest();
 
@@ -32,6 +32,7 @@ class LinkRequestListenerTest extends WebTestCase
     {
         return array(
           array('/tests/1', '</tests/%d>'),
+          array('/tests/1', '<http://localhost/tests/%d>'),
           array('/tests/1', '</tests/noconventions/%d>')
         );
     }
