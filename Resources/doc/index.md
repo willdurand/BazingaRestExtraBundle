@@ -93,7 +93,7 @@ into PHP **objects**. This listener makes two **strong** assumptions:
   and MUST NOT use [Param
   Converters](http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html);
 
-* This method MUST return an `array`, such as `array('user' => $user)`.
+* This method MUST return an `array`, such as `array('user' => $user)` **OR** return the object itself, such as `$user`.
 
 If it is ok for you, then turn the listener on in the configuration:
 
@@ -110,8 +110,16 @@ if (!$request->attributes->has('links')) {
     throw new HttpException(400, 'No links found');
 }
 
+// When *not* using rel in the links (e.g. Link: <http://host/resource>)
 foreach ($request->attributes->get('links') as $linkObject) {
     // ...
+}
+
+// When using rel in the links (e.g. Link: <http://host/resource>; rel="context1", <http://host/resource>; rel="context2")
+foreach ($request->attributes->get('links') as $context => $links) {
+    foreach( $links as $linkObject) {
+      // ...
+    }
 }
 ```
 

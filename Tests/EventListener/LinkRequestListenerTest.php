@@ -12,7 +12,7 @@ class LinkRequestListenerTest extends WebTestCase
     public function testLink($uri, $linkUri)
     {
         $client  = $this->createClient();
-        $crawler = $client->request('LINK', $uri,
+        $client->request('LINK', $uri,
             array(),
             array(),
             array('HTTP_LINK' => sprintf($linkUri, 2), 'HTTP_ORIGIN' => 'http://localhost')
@@ -24,8 +24,11 @@ class LinkRequestListenerTest extends WebTestCase
         $links = $request->attributes->get('links');
         $this->assertCount(1, $links);
 
-        $this->assertInstanceOf('Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Model\Test', $links[0]);
-        $this->assertEquals(2, $links[0]->getId());
+        $link = array_shift($links);
+        $object = is_array($link) ? $link[0] : $link;
+
+        $this->assertInstanceOf('Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Model\Test', $object);
+        $this->assertEquals(2, $object->getId());
     }
 
     public function linkDataProvider()
@@ -33,7 +36,8 @@ class LinkRequestListenerTest extends WebTestCase
         return array(
           array('/tests/1', '</tests/%d>'),
           array('/tests/1', '<http://localhost/tests/%d>'),
-          array('/tests/1', '</tests/noconventions/%d>')
+          array('/tests/1', '</tests/noconventions/%d>'),
+          array('/tests/1', '</tests/noconventions/%d>; rel="test"')
         );
     }
 }

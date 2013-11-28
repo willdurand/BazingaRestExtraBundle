@@ -10,8 +10,10 @@
 
 namespace Bazinga\Bundle\RestExtraBundle\EventListener;
 
+use Bazinga\Bundle\RestExtraBundle\Model\LinkHeader;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,6 +45,10 @@ class LinkRequestListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
+        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
+            return;
+        }
+
         if (!$event->getRequest()->headers->has('link')) {
             return;
         }
@@ -71,17 +77,12 @@ class LinkRequestListener
         // previous method (LINK/UNLINK)
         $this->urlMatcher->getContext()->setMethod('GET');
 
-        // Link needs to cleaned from HTTP_ORIGIN/BasePath when added
-        $httpOriginAndBasePath = $event->getRequest()->getSchemeAndHttpHost() . $event->getRequest()->getBasePath();
-
         // The controller resolver needs a request to resolve the controller.
         $stubRequest = new Request();
 
         foreach ($links as $idx => $link) {
-            $linkParams = explode(';', trim($link));
-            $resource   = array_shift($linkParams);
-            $resource   = preg_replace('/<|>/', '', $resource);
-            $resource   = str_replace($httpOriginAndBasePath, '', $resource);
+            $linkHeader = $this->parseLinkHeader($link);
+            $resource   = $this->parseResource($linkHeader, $event->getRequest());
 
             try {
                 $route = $this->urlMatcher->match($resource);
@@ -102,7 +103,15 @@ class LinkRequestListener
             try {
                 $result = call_user_func_array($controller, $arguments);
 
-                $links[$idx] = is_array($result) ? current($result) : $result;
+                $value = is_array($result) ? current($result) : $result;
+
+                if ($linkHeader->hasRel()) {
+                    unset($links[$idx]);
+                    $links[$linkHeader->getRel()][] = $value;
+                } else {
+                    $links[$idx] = $value;
+                }
+
             } catch (\Exception $e) {
                 continue;
             }
@@ -110,5 +119,36 @@ class LinkRequestListener
 
         $event->getRequest()->attributes->set('links', $links);
         $this->urlMatcher->getContext()->setMethod($requestMethod);
+    }
+
+    /**
+     * @param string $link
+     *
+     * @return LinkHeader
+     */
+    protected function parseLinkHeader($link)
+    {
+        $linkParams = explode(';', trim($link));
+
+        $url = array_shift($linkParams);
+        $url = preg_replace('/<|>/', '', $url);
+
+        $rel = empty($linkParams) ? '' : preg_replace("/rel=\"(.*)\"/", "$1", trim($linkParams[0]));
+
+        return new LinkHeader($url, $rel);
+    }
+
+    /**
+     * @param LinkHeader $linkHeader
+     * @param Request    $request
+     *
+     * @return string
+     */
+    private function parseResource($linkHeader, $request)
+    {
+        // Link needs to be cleaned from 'http://host/basepath' when added
+        $httpSchemaAndBasePath = $request->getSchemeAndHttpHost() . $request->getBasePath();
+
+        return str_replace($httpSchemaAndBasePath, '', $linkHeader->getUrl());
     }
 }
