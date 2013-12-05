@@ -153,6 +153,23 @@ $crawler  = $this->jsonRequest('GET', '/users/123', $data = array());
 $response = $client->getResponse();
 ```
 
+Reference Configuration
+-----------------------
+
+``` yaml
+bazinga_rest_extra:
+    link_request_listener:  false
+    version_listener:
+        enabled:              false
+        attribute_name:       _api_version
+        parameter_name:       v
+        default_version:      1
+    csrf_double_submit_listener:
+        enabled:              false
+        cookie_name:          ~
+        parameter_name:       ~
+```
+
 
 Installation
 ------------
