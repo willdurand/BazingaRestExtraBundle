@@ -117,7 +117,7 @@ foreach ($request->attributes->get('links') as $linkObject) {
 
 // When using rel in the links (e.g. Link: <http://host/resource>; rel="context1", <http://host/resource>; rel="context2")
 foreach ($request->attributes->get('links') as $context => $links) {
-    foreach( $links as $linkObject) {
+    foreach ($links as $linkObject) {
       // ...
     }
 }
