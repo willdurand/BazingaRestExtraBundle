@@ -23,3 +23,13 @@ AnnotationRegistry::registerLoader(function ($class) {
 
     return class_exists($class, false);
 });
+
+AnnotationRegistry::registerLoader(function ($class) {
+    if ($class == 'Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter') {
+        $path = __DIR__.'/../vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/Configuration/ParamConverter.php';
+
+        require_once $path;
+    }
+
+    return class_exists($class, false);
+});
