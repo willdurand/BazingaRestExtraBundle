@@ -17,6 +17,7 @@ class AppKernel extends Kernel
     {
         return array(
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new \Bazinga\Bundle\RestExtraBundle\BazingaRestExtraBundle(),
             new \Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\BazingaRestExtraTestBundle(),
         );

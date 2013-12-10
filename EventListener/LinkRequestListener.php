@@ -11,9 +11,11 @@
 namespace Bazinga\Bundle\RestExtraBundle\EventListener;
 
 use Bazinga\Bundle\RestExtraBundle\Model\LinkHeader;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -97,6 +99,11 @@ class LinkRequestListener
             if (false === $controller = $this->resolver->getController($stubRequest)) {
                 continue;
             }
+
+            // Make sure @ParamConverter and some other annotations are called
+            $subEvent = new FilterControllerEvent($event->getKernel(), $controller, $stubRequest, HttpKernelInterface::MASTER_REQUEST);
+            $event->getDispatcher()->dispatch(KernelEvents::CONTROLLER, $subEvent);
+            $controller = $subEvent->getController();
 
             $arguments = $this->resolver->getArguments($stubRequest, $controller);
 

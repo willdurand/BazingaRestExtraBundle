@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Bazinga\Bundle\RestExtraBundle\Annotation\CsrfDoubleSubmit;
 use Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Model\Test;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class TestController
 {
@@ -17,6 +18,14 @@ class TestController
     public function getNoConventionAction($id)
     {
         return new Test($id);
+    }
+
+    /**
+     * @ParamConverter("date", options={"format": "Y-m-d"})
+     */
+    public function getParamConverterAction(\DateTime $date)
+    {
+        return array('date' => $date);
     }
 
     public function linkAction($id)

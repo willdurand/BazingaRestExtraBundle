@@ -10,6 +10,12 @@ test_get_no_convention:
     requirements:
         _method: GET
 
+test_get_param_converter:
+    pattern: /tests/paramconverter/{date}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:getParamConverter, _format: ~ }
+    requirements:
+        _method: GET
+
 test_link:
     pattern:  /tests/{id}
     defaults: { _controller: BazingaRestExtraTestBundle:Test:link, _format: ~ }

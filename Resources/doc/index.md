@@ -89,9 +89,7 @@ about REST APIs with Symfony2](http://williamdurand.fr/2012/08/02/rest-apis-with
 into PHP **objects**. This listener makes two **strong** assumptions:
 
 * Your `getAction()` action (naming does not matter here), also known as the
-  action used to retrieve a specific resource must take the `identifier` as is,
-  and MUST NOT use [Param
-  Converters](http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html);
+  action used to retrieve a specific resource must take the `identifier` as is;
 
 * This method MUST return an `array`, such as `array('user' => $user)` **OR** return the object itself, such as `$user`.
 
