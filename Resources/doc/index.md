@@ -3,6 +3,46 @@ BazingaRestExtraBundle
 
 This bundle provides extra features for your REST APIs built using Symfony2.
 
+Installation
+------------
+
+Require [`willdurand/rest-extra-bundle`](https://packagist.org/packages/willdurand/rest-extra-bundle)
+to your `composer.json` file:
+
+
+``` json
+{
+    "require": {
+        "willdurand/rest-extra-bundle": "@stable"
+    }
+}
+```
+
+**Protip:** you should browse the
+[`willdurand/rest-extra-bundle`](https://packagist.org/packages/willdurand/rest-extra-bundle)
+page to choose a stable version to use, avoid the `@stable` meta constraint.
+
+Register the bundle in `app/AppKernel.php`:
+
+``` php
+// app/AppKernel.php
+public function registerBundles()
+{
+    return array(
+        // ...
+        new Bazinga\Bundle\RestExtraBundle\BazingaRestExtraBundle(),
+    );
+}
+```
+
+Enable the bundle's configuration in `app/config/config.yml`:
+
+``` yaml
+# app/config/config.yml
+bazinga_rest_extra: ~
+```
+
+
 Usage
 -----
 
@@ -156,46 +196,6 @@ bazinga_rest_extra:
         enabled:              false
         cookie_name:          ~
         parameter_name:       ~
-```
-
-
-Installation
-------------
-
-Require [`willdurand/rest-extra-bundle`](https://packagist.org/packages/willdurand/rest-extra-bundle)
-to your `composer.json` file:
-
-
-``` json
-{
-    "require": {
-        "willdurand/rest-extra-bundle": "@stable"
-    }
-}
-```
-
-**Protip:** you should browse the
-[`willdurand/rest-extra-bundle`](https://packagist.org/packages/willdurand/rest-extra-bundle)
-page to choose a stable version to use, avoid the `@stable` meta constraint.
-
-Register the bundle in `app/AppKernel.php`:
-
-``` php
-// app/AppKernel.php
-public function registerBundles()
-{
-    return array(
-        // ...
-        new Bazinga\Bundle\RestExtraBundle\BazingaRestExtraBundle(),
-    );
-}
-```
-
-Enable the bundle's configuration in `app/config/config.yml`:
-
-``` yaml
-# app/config/config.yml
-bazinga_rest_extra: ~
 ```
 
 
