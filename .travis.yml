@@ -16,9 +16,9 @@ matrix:
         - env: SYMFONY_VERSION=dev-master
 
 before_script:
-    - curl -s http://getcomposer.org/installer | php
-    - php composer.phar require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
-    - php composer.phar update
+    - composer self-update
+    - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
+    - composer update
 
 script:
     - phpunit --coverage-text
