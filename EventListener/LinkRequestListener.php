@@ -101,7 +101,7 @@ class LinkRequestListener
             }
 
             // Make sure @ParamConverter and some other annotations are called
-            $subEvent = new FilterControllerEvent($event->getKernel(), $controller, $stubRequest, HttpKernelInterface::MASTER_REQUEST);
+            $subEvent = new FilterControllerEvent($event->getKernel(), $controller, $stubRequest, HttpKernelInterface::SUB_REQUEST);
             $event->getDispatcher()->dispatch(KernelEvents::CONTROLLER, $subEvent);
             $controller = $subEvent->getController();
 
