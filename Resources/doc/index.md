@@ -121,11 +121,6 @@ foreach ($request->attributes->get('links') as $context => $links) {
 }
 ```
 
-#### VersionListener
-
-Does not work yet...
-
-
 ### Testing
 
 The bundle provides a `WebTestCase` class that provides useful methods for
@@ -157,11 +152,6 @@ Reference Configuration
 ``` yaml
 bazinga_rest_extra:
     link_request_listener:  false
-    version_listener:
-        enabled:              false
-        attribute_name:       _api_version
-        parameter_name:       v
-        default_version:      1
     csrf_double_submit_listener:
         enabled:              false
         cookie_name:          ~
@@ -183,6 +173,10 @@ to your `composer.json` file:
     }
 }
 ```
+
+**Protip:** you should browse the
+[`willdurand/rest-extra-bundle`](https://packagist.org/packages/willdurand/rest-extra-bundle)
+page to choose a stable version to use, avoid the `@stable` meta constraint.
 
 Register the bundle in `app/AppKernel.php`:
 

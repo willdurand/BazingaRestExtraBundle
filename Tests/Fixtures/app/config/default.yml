@@ -5,11 +5,10 @@ framework:
     router:        { resource: "%kernel.root_dir%/config/routing.yml" }
     test: ~
     profiler:      { only_exceptions: false }
+    session: ~
 
 bazinga_rest_extra:
     link_request_listener:  true
-
-    version_listener:       true
 
     csrf_double_submit_listener:
         enabled:            true

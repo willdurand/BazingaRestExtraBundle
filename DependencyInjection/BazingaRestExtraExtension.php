@@ -29,16 +29,6 @@ class BazingaRestExtraExtension extends Extension
             $loader->load('link_request_listener.xml');
         }
 
-        if (!empty($config['version_listener']) && true === $config['version_listener']['enabled']) {
-            $loader->load('version_listener.xml');
-
-            $container->getDefinition('bazinga_rest_extra.event_listener.version')
-                ->replaceArgument(1, $config['version_listener']['attribute_name'])
-                ->replaceArgument(2, $config['version_listener']['parameter_name'])
-                ->replaceArgument(3, $config['version_listener']['default_version'])
-                ;
-        }
-
         if (!empty($config['csrf_double_submit_listener']) && true === $config['csrf_double_submit_listener']['enabled']) {
             $loader->load('csrf_double_submit_listener.xml');
 
