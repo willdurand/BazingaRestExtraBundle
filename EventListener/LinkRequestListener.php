@@ -154,7 +154,7 @@ class LinkRequestListener
     private function parseResource($linkHeader, $request)
     {
         // Link needs to be cleaned from 'http://host/basepath' when added
-        $httpSchemaAndBasePath = $request->getSchemeAndHttpHost() . $request->getBasePath();
+        $httpSchemaAndBasePath = $request->getSchemeAndHttpHost() . $request->getBaseUrl();
 
         return str_replace($httpSchemaAndBasePath, '', $linkHeader->getUrl());
     }
