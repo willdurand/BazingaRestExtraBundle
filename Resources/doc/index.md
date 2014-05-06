@@ -86,6 +86,9 @@ bazinga_rest_extra:
         parameter_name: _csrf_token
 ```
 
+> Note: If your application passes the token in the request headers,
+add `parameter_location: headers` to the configuration above.
+
 Once done, you can configure each action you want to protect with **CSRF double
 submit** mechanism by using the `@CsrfDoubleSubmit` annotation:
 
@@ -196,6 +199,7 @@ bazinga_rest_extra:
         enabled:              false
         cookie_name:          ~
         parameter_name:       ~
+        parameter_location    ~
 ```
 
 

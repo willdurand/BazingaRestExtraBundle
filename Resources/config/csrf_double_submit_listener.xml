@@ -13,6 +13,7 @@
             <argument type="service" id="annotation_reader" />
             <argument /> <!-- Cookie name -->
             <argument /> <!-- Parameter name -->
+            <argument /> <!-- Parameter location -->
         </service>
     </services>
 </container>

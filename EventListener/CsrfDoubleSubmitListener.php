@@ -35,15 +35,22 @@ class CsrfDoubleSubmitListener
     private $parameterName;
 
     /**
+     * @var string
+     */
+    private $parameterLocation;
+
+    /**
      * @param Reader $annotationReader
      * @param string $cookieName
      * @param string $parameterName
+     * @param string $parameterLocation
      */
-    public function __construct(Reader $annotationReader, $cookieName, $parameterName)
+    public function __construct(Reader $annotationReader, $cookieName, $parameterName, $parameterLocation = 'request')
     {
-        $this->annotationReader = $annotationReader;
-        $this->cookieName       = $cookieName;
-        $this->parameterName    = $parameterName;
+        $this->annotationReader     = $annotationReader;
+        $this->cookieName           = $cookieName;
+        $this->parameterName        = $parameterName;
+        $this->parameterLocation    = $parameterLocation;
     }
 
     public function onKernelController(FilterControllerEvent $event)
@@ -69,7 +76,7 @@ class CsrfDoubleSubmitListener
         }
 
         $cookieValue = $request->cookies->get($this->cookieName);
-        $paramValue  = $request->request->get($this->parameterName);
+        $paramValue  = $request->{$this->parameterLocation}->get($this->parameterName);
 
         if (empty($cookieValue)) {
             throw new HttpException(400, 'Cookie not found or invalid.');
