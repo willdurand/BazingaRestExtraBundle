@@ -91,7 +91,7 @@ class CsrfDoubleSubmitListener
         }
 
         $request->cookies->remove($this->cookieName);
-        $request->request->remove($this->parameterName);
+        $request->{$this->parameterLocation}->remove($this->parameterName);
     }
 
     /**
