@@ -21,9 +21,8 @@
         "sensio/framework-extra-bundle": "~2.1"
     },
     "autoload": {
-        "psr-0": { "Bazinga\\Bundle\\RestExtraBundle": "" }
+        "psr-4": { "Bazinga\\Bundle\\RestExtraBundle\\": "" }
     },
-    "target-dir": "Bazinga/Bundle/RestExtraBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
