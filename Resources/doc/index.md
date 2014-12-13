@@ -6,21 +6,7 @@ This bundle provides extra features for your REST APIs built using Symfony2.
 Installation
 ------------
 
-Require [`willdurand/rest-extra-bundle`](https://packagist.org/packages/willdurand/rest-extra-bundle)
-to your `composer.json` file:
-
-
-``` json
-{
-    "require": {
-        "willdurand/rest-extra-bundle": "@stable"
-    }
-}
-```
-
-**Protip:** you should browse the
-[`willdurand/rest-extra-bundle`](https://packagist.org/packages/willdurand/rest-extra-bundle)
-page to choose a stable version to use, avoid the `@stable` meta constraint.
+`composer.phar require willdurand/rest-extra-bundle`
 
 Register the bundle in `app/AppKernel.php`:
 
