@@ -6,7 +6,8 @@ This bundle provides extra features for your REST APIs built using Symfony2.
 Installation
 ------------
 
-`composer.phar require willdurand/rest-extra-bundle`
+    $ composer.phar require willdurand/rest-extra-bundle
+
 
 Register the bundle in `app/AppKernel.php`:
 
