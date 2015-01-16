@@ -22,6 +22,12 @@ test_link:
     requirements:
         _method: LINK
 
+test_patch:
+    pattern:  /tests/{id}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:patch, _format: ~ }
+    requirements:
+        _method: PATCH
+
 test_all:
     pattern:  /tests
     defaults: { _controller: BazingaRestExtraTestBundle:Test:all, _format: ~ }

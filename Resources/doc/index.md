@@ -148,6 +148,33 @@ foreach ($request->attributes->get('links') as $context => $links) {
 }
 ```
 
+#### PatchRequestListener
+
+The `PatchRequestListener` listener is able to convert **patches**, as described in
+[RFC 6902](http://tools.ietf.org/html/rfc6902) and covered in [this blog post
+about REST APIs with Symfony2](http://williamdurand.fr/2014/02/14/please-do-not-patch-like-an-idiot/),
+into PHP **objects**.
+
+If it is ok for you, then turn the listener on in the configuration:
+
+``` yaml
+# app/config/config.yml
+bazinga_rest_extra:
+    patch_request_listener: true
+```
+
+Now you can retrieve your objects in the Request's attributes:
+
+``` php
+if (!$request->attributes->has('patches')) {
+    throw new HttpException(400, 'No patch found');
+}
+
+foreach ($request->attributes->get('patches') as $patch) {
+    $user->patch($patch);
+}
+```
+
 ### Testing
 
 The bundle provides a `WebTestCase` class that provides useful methods for
