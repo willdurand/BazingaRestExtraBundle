@@ -31,6 +31,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('link_request_listener')->defaultFalse()->end()
+                ->scalarNode('patch_request_listener')->defaultFalse()->end()
                 ->arrayNode('csrf_double_submit_listener')
                     ->treatFalseLike(array('enabled' => false))
                     ->treatTrueLike(array('enabled' => true))

@@ -33,6 +33,11 @@ class TestController
         return new Response();
     }
 
+    public function patchAction($id)
+    {
+        return new Response();
+    }
+
     public function allAction()
     {
         return new Response(__METHOD__);
