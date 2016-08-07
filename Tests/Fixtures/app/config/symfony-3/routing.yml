@@ -1,0 +1,53 @@
+test_get:
+    path:  /tests/{id}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:get, _format: ~ }
+    methods: GET
+
+test_get_no_convention:
+    path:  /tests/noconventions/{id}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:getNoConvention, _format: ~ }
+    methods: GET
+
+test_get_param_converter:
+    path: /tests/paramconverter/{date}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:getParamConverter, _format: ~ }
+    methods: GET
+
+test_link:
+    path:  /tests/{id}
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:link, _format: ~ }
+    methods: LINK
+
+test_all:
+    path:  /tests
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:all, _format: ~ }
+    methods: GET
+    requirements:
+        _api_version: "1"
+
+test_all_version_123:
+    path:  /tests
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:allVersion123, _format: ~ }
+    methods: GET
+    requirements:
+        _api_version: "123"
+
+test_create:
+    path:  /tests
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:create, _format: ~ }
+    methods: POST
+
+test_create_without_csrf_double_submit:
+    path:  /without-csrf-double-submit
+    defaults: { _controller: BazingaRestExtraTestBundle:Test:createWithoutCsrfDoubleSubmit, _format: ~ }
+    methods: POST
+
+test_create_csrf_class:
+    path:  /tests-csrf-class
+    defaults: { _controller: BazingaRestExtraTestBundle:TestCsrf:create, _format: ~ }
+    methods: POST
+
+test_get_csrf_class:
+    path:  /tests-csrf-class
+    defaults: { _controller: BazingaRestExtraTestBundle:TestCsrf:get, _format: ~ }
+    methods: GET
