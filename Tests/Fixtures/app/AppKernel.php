@@ -50,10 +50,12 @@ class AppKernel extends Kernel
     private static function getRoutingVersion()
     {
         $installedPackages = json_decode(file_get_contents(__DIR__.'/../../../vendor/composer/installed.json'));
-        foreach($installedPackages as $package) {
+        foreach ($installedPackages as $package) {
             if($package->name === 'symfony/routing')
-                return (int)($package->version_normalized);
+
+                return (int) ($package->version_normalized);
         }
+
         return 2;
     }
 

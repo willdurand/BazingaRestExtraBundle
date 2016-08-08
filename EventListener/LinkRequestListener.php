@@ -56,7 +56,7 @@ class LinkRequestListener
             return;
         }
 
-        if(!$eventDispatcher) {
+        if (!$eventDispatcher) {
             // BC for symfony < 2.4: $eventDispatcher is not passed to the function as a parameter.
             $eventDispatcher = $event->getDispatcher();
         }

@@ -34,8 +34,9 @@ AnnotationRegistry::registerLoader(function ($class) {
         do {
             $path = array_pop($paths);
             if(!$path)
+
                 return false;
-        } while(!file_exists($path));
+        } while (!file_exists($path));
 
         require_once $path;
     }
