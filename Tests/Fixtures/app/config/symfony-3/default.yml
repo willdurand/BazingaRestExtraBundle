@@ -1,0 +1,16 @@
+framework:
+    secret:        test
+    csrf_protection:
+        enabled: true
+    router:        { resource: "%kernel.root_dir%/config/symfony-3/routing.yml" }
+    test: ~
+    profiler:      { only_exceptions: false }
+    session: ~
+
+bazinga_rest_extra:
+    link_request_listener:  true
+
+    csrf_double_submit_listener:
+        enabled:            true
+        cookie_name:        csrf_cookie
+        parameter_name:     _csrf_token

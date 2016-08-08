@@ -44,7 +44,17 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/config/' . $this->environment . '.yml');
+        $loader->load(__DIR__ . '/config/symfony-'.self::getRoutingVersion(). '/' . $this->environment . '.yml');
+    }
+
+    private static function getRoutingVersion()
+    {
+        $installedPackages = json_decode(file_get_contents(__DIR__.'/../../../vendor/composer/installed.json'));
+        foreach($installedPackages as $package) {
+            if($package->name === 'symfony/routing')
+                return (int)($package->version_normalized);
+        }
+        return 2;
     }
 
     public function serialize()

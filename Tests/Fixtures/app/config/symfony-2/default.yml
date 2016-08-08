@@ -2,7 +2,7 @@ framework:
     secret:        test
     csrf_protection:
         enabled: true
-    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
+    router:        { resource: "%kernel.root_dir%/config/symfony-2/routing.yml" }
     test: ~
     profiler:      { only_exceptions: false }
     session: ~

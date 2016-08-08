@@ -26,7 +26,16 @@ AnnotationRegistry::registerLoader(function ($class) {
 
 AnnotationRegistry::registerLoader(function ($class) {
     if ($class == 'Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter') {
-        $path = __DIR__.'/../vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/Configuration/ParamConverter.php';
+        $paths = array(
+            __DIR__.'/../vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/Configuration/ParamConverter.php',
+            __DIR__.'/../vendor/sensio/framework-extra-bundle/Configuration/ParamConverter.php',
+        );
+
+        do {
+            $path = array_pop($paths);
+            if(!$path)
+                return false;
+        } while(!file_exists($path));
 
         require_once $path;
     }
