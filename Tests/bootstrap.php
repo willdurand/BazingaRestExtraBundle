@@ -14,6 +14,8 @@ EOT
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
+PHPUnit_Framework_Error_Deprecated::$enabled = false;
+
 AnnotationRegistry::registerLoader(function ($class) {
     if (strpos($class, 'Bazinga\Bundle\RestExtraBundle\Annotation\\') === 0) {
         $path = __DIR__.'/../'.str_replace('\\', '/', substr($class, strlen('Bazinga\Bundle\RestExtraBundle\\')))   .'.php';
