@@ -1,61 +1,51 @@
 test_get:
     path:  /tests/{id}
     defaults: { _controller: BazingaRestExtraTestBundle:Test:get, _format: ~ }
-    requirements:
-        methods: [GET]
+    methods: GET
 
 test_get_no_convention:
     path:  /tests/noconventions/{id}
     defaults: { _controller: BazingaRestExtraTestBundle:Test:getNoConvention, _format: ~ }
-    requirements:
-        methods: [GET]
+    methods: GET
 
 test_get_param_converter:
     path: /tests/paramconverter/{date}
     defaults: { _controller: BazingaRestExtraTestBundle:Test:getParamConverter, _format: ~ }
-    requirements:
-        methods: [GET]
+    methods: GET
 
 test_link:
     path:  /tests/{id}
     defaults: { _controller: BazingaRestExtraTestBundle:Test:link, _format: ~ }
-    requirements:
-        methods: [LINK]
+    methods: [LINK]
 
 test_all:
     path:  /tests
     defaults: { _controller: BazingaRestExtraTestBundle:Test:all, _format: ~ }
-    requirements:
-        methods:      [GET]
+    methods:      GET
         _api_version: "1"
 
 test_all_version_123:
     path:  /tests
     defaults: { _controller: BazingaRestExtraTestBundle:Test:allVersion123, _format: ~ }
-    requirements:
-        methods:      [GET]
+    methods:      GET
         _api_version: "123"
 
 test_create:
     path:  /tests
     defaults: { _controller: BazingaRestExtraTestBundle:Test:create, _format: ~ }
-    requirements:
-        methods: [POST]
+    methods: POST
 
 test_create_without_csrf_double_submit:
     path:  /without-csrf-double-submit
     defaults: { _controller: BazingaRestExtraTestBundle:Test:createWithoutCsrfDoubleSubmit, _format: ~ }
-    requirements:
-        methods: [POST]
+    methods: POST
 
 test_create_csrf_class:
     path:  /tests-csrf-class
     defaults: { _controller: BazingaRestExtraTestBundle:TestCsrf:create, _format: ~ }
-    requirements:
-        methods: [POST]
+    methods: POST
 
 test_get_csrf_class:
     path:  /tests-csrf-class
     defaults: { _controller: BazingaRestExtraTestBundle:TestCsrf:get, _format: ~ }
-    requirements:
-        methods: [GET]
+    methods: GET
