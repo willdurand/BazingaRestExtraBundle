@@ -37,10 +37,8 @@ matrix:
       - php: 7.1
         env: SYMFONY_VERSION=4.0.x@beta
 
-before_script:
-    - composer self-update
-    - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
-    - composer update
+before_install: if [[ "$SYMFONY_VERSION" != "" ]]; then composer require --no-update symfony/framework-bundle:${SYMFONY_VERSION}; fi
 
-script:
-    - vendor/bin/phpunit --coverage-text
+install: composer update --prefer-dist
+
+script: vendor/bin/phpunit --coverage-text
