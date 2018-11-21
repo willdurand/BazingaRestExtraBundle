@@ -1,0 +1,53 @@
+test_get:
+    path:  /tests/{id}
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::getAction, _format: ~ }
+    methods: GET
+
+test_get_no_convention:
+    path:  /tests/noconventions/{id}
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::getNoConventionAction, _format: ~ }
+    methods: GET
+
+test_get_param_converter:
+    path: /tests/paramconverter/{date}
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::getParamConverterAction, _format: ~ }
+    methods: GET
+
+test_link:
+    path:  /tests/{id}
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::linkAction, _format: ~ }
+    methods: LINK
+
+test_all:
+    path:  /tests
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::allAction, _format: ~ }
+    methods: GET
+    requirements:
+        _api_version: "1"
+
+test_all_version_123:
+    path:  /tests
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::allVersion123Action, _format: ~ }
+    methods: GET
+    requirements:
+        _api_version: "123"
+
+test_create:
+    path:  /tests
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::createAction, _format: ~ }
+    methods: POST
+
+test_create_without_csrf_double_submit:
+    path:  /without-csrf-double-submit
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestController::createWithoutCsrfDoubleSubmitAction, _format: ~ }
+    methods: POST
+
+test_create_csrf_class:
+    path:  /tests-csrf-class
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestCsrfController::createAction, _format: ~ }
+    methods: POST
+
+test_get_csrf_class:
+    path:  /tests-csrf-class
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestCsrfController::getAction, _format: ~ }
+    methods: GET
