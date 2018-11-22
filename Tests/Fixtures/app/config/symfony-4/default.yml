@@ -1,10 +1,9 @@
 framework:
     secret:        test
-    csrf_protection:
-        enabled: true
-    router:        { resource: "%kernel.root_dir%/config/symfony-2/routing.yml" }
+    csrf_protection: false
+    router:        { resource: "%kernel.root_dir%/config/symfony-3/routing.yml" }
     test: ~
-    profiler:      { only_exceptions: false }
+    profiler:      false
     session: ~
 
 bazinga_rest_extra:

@@ -12,6 +12,9 @@ namespace Bazinga\Bundle\RestExtraBundle\EventListener;
 
 use Bazinga\Bundle\RestExtraBundle\Model\LinkHeader;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
+use Symfony\Component\HttpKernel\Event\FilterControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
@@ -37,13 +40,22 @@ class LinkRequestListener
     private $urlMatcher;
 
     /**
+     * @var ArgumentResolverInterface
+     */
+    private $argumentResolver;
+
+    /**
      * @param ControllerResolverInterface $controllerResolver The 'controller_resolver' service
      * @param UrlMatcherInterface         $urlMatcher         The 'router' service
      */
-    public function __construct(ControllerResolverInterface $controllerResolver, UrlMatcherInterface $urlMatcher)
+    public function __construct(ControllerResolverInterface $controllerResolver, UrlMatcherInterface $urlMatcher, ArgumentResolverInterface $argumentResolver = null)
     {
         $this->resolver   = $controllerResolver;
         $this->urlMatcher = $urlMatcher;
+
+        if (null === $this->argumentResolver) {
+            $this->argumentResolver = new ArgumentResolver();
+        }
     }
 
     public function onKernelRequest(GetResponseEvent $event, $eventName = null, EventDispatcherInterface $eventDispatcher = null)
@@ -111,7 +123,12 @@ class LinkRequestListener
             $eventDispatcher->dispatch(KernelEvents::CONTROLLER, $subEvent);
             $controller = $subEvent->getController();
 
-            $arguments = $this->resolver->getArguments($stubRequest, $controller);
+            $arguments = $this->argumentResolver->getArguments($stubRequest, $controller);
+
+            $subEvent = new FilterControllerArgumentsEvent($event->getKernel(), $controller, $arguments, $stubRequest, HttpKernelInterface::SUB_REQUEST);
+            $eventDispatcher->dispatch(KernelEvents::CONTROLLER_ARGUMENTS, $subEvent);
+            $controller = $subEvent->getController();
+            $arguments = $subEvent->getArguments();
 
             try {
                 $result = call_user_func_array($controller, $arguments);
