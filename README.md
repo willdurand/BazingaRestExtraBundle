@@ -3,7 +3,7 @@ BazingaRestExtraBundle
 
 [![Build Status](https://secure.travis-ci.org/willdurand/BazingaRestExtraBundle.png)](http://travis-ci.org/willdurand/BazingaRestExtraBundle)
 
-This bundle provides extra features for your REST APIs built using Symfony2.
+This bundle provides extra features for your REST APIs built using Symfony.
 
 
 Documentation
