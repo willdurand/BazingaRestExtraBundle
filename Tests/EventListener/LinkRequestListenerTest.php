@@ -20,7 +20,7 @@ class LinkRequestListenerTest extends WebTestCase
         if (true === $forceScriptName) {
             $headers['SCRIPT_FILENAME']     = '/app.php';
             $headers['SCRIPT_NAME']         = '/app.php';
-            $headers['HTTP_X_ORIGINAL_URL'] = '/app.php' . $uri;
+            $uri = '/app.php' . $uri;
         }
 
         $client->request('LINK', $uri,
