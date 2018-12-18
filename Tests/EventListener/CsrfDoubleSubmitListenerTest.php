@@ -160,6 +160,109 @@ class CsrfDoubleSubmitListenerTest extends WebTestCase
         );
     }
 
+    public function testInvokeCsrfDoubleSubmit()
+    {
+        $csrfValue = 'Sup3r$ecr3t';
+
+        $client = $this->createClient();
+        $client->getCookieJar()->set(new Cookie('csrf_cookie', $csrfValue));
+
+        $crawler = $client->request('POST', '/tests/invoke', array(
+            '_csrf_token' => $csrfValue,
+        ));
+
+        $request  = $client->getRequest();
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(
+            'Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestInvokeCsrfController::__invoke',
+            $response->getContent()
+        );
+        $this->assertCount(0, $response->headers->getCookies());
+    }
+
+    /**
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage Cookie not found or invalid.
+     */
+    public function testInvokeCsrfDoubleSubmitFailsIfNoCookieFound()
+    {
+        $client  = $this->createClient();
+        $crawler = $client->request('POST', '/tests/invoke', array(
+            '_csrf_token' => '',
+        ));
+    }
+
+    /**
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage Cookie not found or invalid.
+     *
+     * @dataProvider dataProviderWithInvalidData
+     */
+    public function testInvokeCsrfDoubleSubmitFailsIfInvalidCookieValue($cookieValue)
+    {
+        $client = $this->createClient();
+        $client->getCookieJar()->set(new Cookie('csrf_cookie', $cookieValue));
+
+        $crawler = $client->request('POST', '/tests/invoke');
+    }
+
+    /**
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage Request parameter not found or invalid.
+     */
+    public function testInvokeCsrfDoubleSubmitFailsIfNoRequestParameterFound()
+    {
+        $client = $this->createClient();
+        $client->getCookieJar()->set(new Cookie('csrf_cookie', 'a token'));
+
+        $crawler = $client->request('POST', '/tests/invoke');
+    }
+
+    /**
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage Request parameter not found or invalid.
+     *
+     * @dataProvider dataProviderWithInvalidData
+     */
+    public function testInvokeCsrfDoubleSubmitFailsIfInvalidRequestParamValue($paramValue)
+    {
+        $client = $this->createClient();
+        $client->getCookieJar()->set(new Cookie('csrf_cookie', 'a token'));
+
+        $crawler = $client->request('POST', '/tests/invoke', array(
+            '_csrf_token' => $paramValue,
+        ));
+    }
+
+    /**
+     * @expectedException        Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage CSRF values mismatch.
+     */
+    public function testInvokeCsrfDoubleSubmitFailsIfValuesMismatch()
+    {
+        $client = $this->createClient();
+        $client->getCookieJar()->set(new Cookie('csrf_cookie', 'a token'));
+
+        $crawler = $client->request('POST', '/tests/invoke', array(
+            '_csrf_token' => 'another token',
+        ));
+    }
+
+    public function testInvokeNonCsrfDoubleSubmitWithoutAnnotationIsInactive()
+    {
+        $client   = $this->createClient();
+        $crawler  = $client->request('POST', '/tests/invoke-without-csrf');
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(
+            'Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestInvokeController::__invoke',
+            $response->getContent()
+        );
+    }
+
     public static function dataProviderWithInvalidData()
     {
         return array(

@@ -51,3 +51,13 @@ test_get_csrf_class:
     path:  /tests-csrf-class
     defaults: { _controller: BazingaRestExtraTestBundle:TestCsrf:get, _format: ~ }
     methods: GET
+
+test_invoke_csrf_class:
+    path:  /tests/invoke
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestInvokeCsrfController, _format: ~ }
+    methods: POST
+
+test_invoke:
+    path:  /tests/invoke-without-csrf
+    defaults: { _controller: Bazinga\Bundle\RestExtraBundle\Tests\Fixtures\Controller\TestInvokeController, _format: ~ }
+    methods: POST
