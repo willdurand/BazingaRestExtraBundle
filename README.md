@@ -27,7 +27,7 @@ file.
 Credits
 -------
 
-* William Durand <william.durand1@gmail.com>
+* William Durand
 * [All contributors](https://github.com/willdurand/BazingaRestExtraBundle/contributors)
 
 
